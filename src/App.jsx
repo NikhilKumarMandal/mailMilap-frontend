@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import useNotification from "./hooks/useNotification"
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+ 
+
+  const {NotificationComponent, triggerNotification} =
+    useNotification("top-right");
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="App">
+      {NotificationComponent}
+      <h1>Toast Component</h1>
+      <div className="btns">
+        <button
+          onClick={() =>
+            triggerNotification({
+              type: "success",
+              message: "This is a success message!",
+              duration: 3000,
+              animation: "pop",
+            })
+          }
+        >
+          Show Success
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button
+          onClick={() =>
+            triggerNotification({
+              type: "info",
+              message: "This is an info message!",
+              duration: 3000,
+            })
+          }
+        >
+          Show Info
+        </button>
+        <button
+          onClick={() =>
+            triggerNotification({
+              type: "warning",
+              message: "This is a warning message!",
+              duration: 3000,
+            })
+          }
+        >
+          Show Warning
+        </button>
+        <button
+          onClick={() =>
+            triggerNotification({
+              type: "error",
+              message: "This is an error message!",
+              duration: 3000,
+            })
+          }
+        >
+          Show Error
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
 export default App
